@@ -1,11 +1,12 @@
 <template>
   <footer>
     <div class="copyright">
-      <n-text class="description" v-html="packageJson.description" />
+      <n-text class="description" v-html="packageJson.description + '&nbsp;&nbsp;Copyright&nbsp;&copy;&nbsp;' + fullYear"/>
+      |
       <n-text
         class="author"
         :depth="3"
-        v-html="packageJson.author"
+        v-html="' Power by ' + packageJson.author"
         @click="jumpLink(packageJson.github)"
       />
     </div>
@@ -22,6 +23,7 @@
 <script setup>
 import packageJson from "@/../package.json";
 
+const fullYear = new Date().getFullYear();
 const icp = ref(import.meta.env.VITE_ICP ? import.meta.env.VITE_ICP : null);
 
 // 链接跳转
@@ -43,17 +45,20 @@ footer {
   .copyright {
     margin-bottom: 4px;
     .description {
-      &::after {
-        content: "@ Copyright By";
-        margin: 0 6px;
-      }
+      font-weight: bold;
+      // &::after {
+      //   content: "@ Copyright By";
+      //   margin: 0 6px;
+      // }
     }
   }
   .author {
+    font-size: 85%;
+    font-weight: 500;
     cursor: pointer;
     transition: all 0.3s;
     &:hover {
-      color: var(--n-code-text-color);
+      color: #ea444d;
     }
   }
   .icp {
